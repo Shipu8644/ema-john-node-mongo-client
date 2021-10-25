@@ -14,8 +14,9 @@ const Shop = () => {
     // products to be rendered on the UI
     const [displayProducts, setDisplayProducts] = useState([]);
 
+    const size = 10;
     useEffect(() => {
-        fetch('http://localhost:5000/products')
+        fetch(`http://localhost:5000/products?page=${page}&&size=${size}`)
             .then(res => res.json())
             .then(data => {
                 setProducts(data.products);
@@ -24,7 +25,7 @@ const Shop = () => {
                 const pageNumber = Math.ceil(count / 10);
                 setPageCount(pageNumber);
             });
-    }, []);
+    }, [page]);
 
 
 
@@ -76,9 +77,9 @@ const Shop = () => {
                         {
                             [...Array(pageCount).keys()]
                                 .map(number => <button
-                                    className={number + 1 === page ? 'selected' : ""}
+                                    className={number === page ? 'selected' : ""}
                                     key={number}
-                                    onClick={() => setPage(number + 1)}
+                                    onClick={() => setPage(number)}
                                 >
                                     {number + 1}
                                 </button>)
