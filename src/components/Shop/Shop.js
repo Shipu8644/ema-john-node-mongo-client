@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 const Shop = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useCart(products);
+    const [page, setPage] = useState(1);
     const [pageCount, setPageCount] = useState(0);
     // products to be rendered on the UI
     const [displayProducts, setDisplayProducts] = useState([]);
@@ -71,6 +72,18 @@ const Shop = () => {
                         >
                         </Product>)
                     }
+                    <div className="pagination">
+                        {
+                            [...Array(pageCount).keys()]
+                                .map(number => <button
+                                    className={number + 1 === page ? 'selected' : ""}
+                                    key={number}
+                                    onClick={() => setPage(number + 1)}
+                                >
+                                    {number + 1}
+                                </button>)
+                        }
+                    </div>
                 </div>
                 <div className="cart-container">
                     <Cart cart={cart}>
